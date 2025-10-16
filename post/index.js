@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/posts", (req, res) => {
-  res.status(200).json(Object.values(posts));
+  res.status(200).json(posts);
 });
 
 app.post("/posts", (req, res) => {
