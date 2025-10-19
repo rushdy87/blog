@@ -7,8 +7,11 @@ app.use(express.json());
 
 app.use(cors());
 
+const events = [];
+
 app.post("/events", async (req, res) => {
   const event = req.body;
+  events.push(event);
 
   // List of services to notify
   const services = [
@@ -29,6 +32,11 @@ app.post("/events", async (req, res) => {
 
   res.send({ status: "Event dispatched" });
 });
+
+app.get("/events", (req, res) => {
+  res.send(events);
+});
+
 const PORT = 5005;
 app.listen(PORT, () => {
   console.log(`Event Bus listening on port ${PORT}`);
