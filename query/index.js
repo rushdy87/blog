@@ -11,10 +11,9 @@ const posts = {};
  *  "postId1": {
  *    id: "postId1",
  *    title: "Post Title 1",
- *    title: "Post Content 1",
  *    comments: [
- *      { id: "commentId1", content: "Comment Content 1" },
- *      { id: "commentId2", content: "Comment Content 2" }
+ *      { id: "commentId1", content: "Comment Content 1", status: "approved" },
+ *      { id: "commentId2", content: "Comment Content 2", status: "pending" }
  *    ]
  *  }
  * }
@@ -34,10 +33,22 @@ app.post("/events", (req, res) => {
       break;
     }
     case "CommentCreated": {
-      const { id, content, postId } = data;
+      const { id, content, postId, status } = data;
       const post = posts[postId];
       if (post) {
-        post.comments.push({ id, content });
+        post.comments.push({ id, content, status });
+      }
+      break;
+    }
+    case "CommentUpdated": {
+      const { id, content, postId, status } = data;
+      const post = posts[postId];
+      if (post) {
+        const comment = post.comments.find((comment) => comment.id === id);
+        if (comment) {
+          comment.status = status;
+          comment.content = content;
+        }
       }
       break;
     }

@@ -1,8 +1,11 @@
 const express = require("express");
 const axios = require("axios");
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
+
+app.use(cors());
 
 app.post("/events", async (req, res) => {
   const event = req.body;
@@ -12,6 +15,7 @@ app.post("/events", async (req, res) => {
     "http://localhost:5000/events", // Post Service
     "http://localhost:5001/events", // Comment Service
     "http://localhost:5002/events", // Query Service
+    "http://localhost:5003/events", // Moderation Service
   ];
 
   // Notify all services about the event
@@ -25,7 +29,7 @@ app.post("/events", async (req, res) => {
 
   res.send({ status: "Event dispatched" });
 });
-const PORT = 7000;
+const PORT = 5005;
 app.listen(PORT, () => {
   console.log(`Event Bus listening on port ${PORT}`);
 });
