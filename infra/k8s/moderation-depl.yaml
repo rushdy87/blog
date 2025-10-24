@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: event-bus-depl
+  name: moderation-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: event-bus
+      app: moderation
   template:
     metadata:
       labels:
-        app: event-bus
+        app: moderation
     spec:
       containers:
-        - name: event-bus
-          image: rushdy87/event-bus
+        - name: moderation
+          image: rushdy87/moderation
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: event-bus-srv
+  name: moderation-srv
 spec:
   selector:
-    app: event-bus
+    app: moderation
   type: ClusterIP
   ports:
-    - name: event-bus
+    - name: moderation
       protocol: TCP
-      port: 5005
-      targetPort: 5005
+      port: 5003
+      targetPort: 5003
