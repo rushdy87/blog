@@ -16,9 +16,9 @@ app.post("/events", async (req, res) => {
   // List of services to notify
   const services = [
     "http://posts-clusterip-srv:5000/events", // Post Service
-    // "http://localhost:5001/events", // Comment Service
-    // "http://localhost:5002/events", // Query Service
-    // "http://localhost:5003/events", // Moderation Service
+    "http://comments-srv:5001/events", // Comment Service
+    "http://query-srv:5002/events", // Query Service
+    "http://moderation-srv:5003/events", // Moderation Service
   ];
 
   // Notify all services about the event
